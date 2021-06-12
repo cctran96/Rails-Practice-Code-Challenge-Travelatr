@@ -1,0 +1,23 @@
+<h1>New Post</h1>
+<% if @post.errors.any? %>
+    <div id="error_explanation">
+        <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<%= form_for @post do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %><br><br>
+    <%= f.label :content %>
+    <%= f.text_area :content %><br><br>
+    <%= f.label :blogger%>
+    <%= f.collection_select :blogger_id, Blogger.all, :id, :name, include_blank: 'Select a blogger' %>
+    <%= f.label :destination%>
+    <%= f.collection_select :destination_id, Destination.all, :id, :format_name, include_blank: 'Select a destination' %>
+    <%= f.hidden_field :likes, value: 0 %>
+    <%= f.submit %>
+<% end %>
